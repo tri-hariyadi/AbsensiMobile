@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import {
   responsiveHeight,
   responsiveFontSize,
-  responsiveWidth,
 } from "react-native-responsive-dimensions";
 import { colors, customFont } from '../../../utils';
 

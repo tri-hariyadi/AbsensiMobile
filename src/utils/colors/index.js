@@ -25,6 +25,7 @@ const optionColors = {
   blueDark: '#012e5e',
   blue1: '#1a73e8',
   
+  //indigo
   indigo1: '#112340',
 
   //yellow

@@ -7,13 +7,15 @@ import {
   ImageBackground,
   Keyboard,
   ScrollView,
-  Animated
+  Animated,
+  Easing
 } from 'react-native';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 import { Field, reduxForm } from 'redux-form';
 import { ICLogoApp, ILBgLogin } from '../../assets';
 import { Gap, TextField, Button, Link } from '../../components';
 import { colors } from '../../utils';
-import Styles from './style';
+import Styles from './style'; 
 
 const LoginPage = () => {
   const a = useRef();
@@ -35,7 +37,8 @@ const LoginPage = () => {
     if (!isOpen.current) {
       Animated.timing(animated, {
         toValue: isOpen ? 1 : 0,
-        duration: 200,
+        duration: 300,
+        easing: Easing.linear,
         useNativeDriver: Platform.OS === 'android' ? false : true
       }).start();
     }
@@ -55,50 +58,41 @@ const LoginPage = () => {
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={Styles.container}
       >
-        <Animated.View style={{
-          transform: [{
-            scale: animated.interpolate({
+        {!isOpen &&
+          <Animated.View style={{
+            opacity: animated.interpolate({
               inputRange: [0, 1],
               outputRange: [1, 0],
-            })
-          }],
-          opacity: animated.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1, 0],
-          }),
-          height: animated.interpolate({
-            inputRange: [0, 1],
-            outputRange: ["40%", "0%"],
-          }),
-        }}>
-          <ImageBackground
-            source={ILBgLogin}
-            style={Styles.heroImage}
-            imageStyle={Styles.backgroundImageStyle}>
-            <Image source={ICLogoApp} style={Styles.imageLogo2} />
-            <Gap height={2} />
-            <Text style={Styles.textWelcome}>Welcome</Text>
-            <Text style={Styles.textDesc}>Sign in to continue</Text>
-          </ImageBackground>
-        </Animated.View>
+            }),
+            height: animated.interpolate({
+              inputRange: [0, 1],
+              outputRange: ["40%", "0%"],
+            }),
+          }}>
+            <ImageBackground
+              source={ILBgLogin}
+              style={Styles.heroImage}
+              imageStyle={Styles.backgroundImageStyle}>
+              <Image source={ICLogoApp} style={Styles.imageLogo2} />
+              <Gap height={2} />
+              <Text style={Styles.textWelcome}>Welcome</Text>
+              <Text style={Styles.textDesc}>Sign in to continue</Text>
+            </ImageBackground>
+          </Animated.View>
+        }
         <View style={Styles.content(isOpen)}>
           <View style={Styles.logoWrapper}>
             <Animated.View
               style={{
-                transform: [{
-                  translateY: animated.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-200, 0],
-                  })
-                }],
                 opacity: animated.interpolate({
                   inputRange: [0, 1],
                   outputRange: [0, 1],
                 }),
                 height: animated.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, 100],
+                  outputRange: [0, responsiveHeight(20)],
                 }),
+                display: isOpen ? 'flex' : 'none'
               }}>
               <Image source={ICLogoApp} style={Styles.imageLogo} />
             </Animated.View>
@@ -125,6 +119,7 @@ const LoginPage = () => {
               autoCapitalize='none'
               component={TextField}
               label='Password'
+              secureTextEntry
             />
             <Gap height={4} />
             <Button

@@ -30,7 +30,7 @@ const Button = ({
       <TouchableNativeFeedback
         onPress={onPressing}
         background={TouchableNativeFeedback.Ripple(
-          rippleColor ? rippleColor : 'white', true
+          rippleColor ? rippleColor : colors.colorVariables.white, true
         )}
       >
         <View style={Styles.container(background, type)}>

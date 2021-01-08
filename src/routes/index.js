@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 const Routes = () => {
   return (
-    <Stack.Navigator initialRouteName='SplashScreen'>
+    <Stack.Navigator initialRouteName='LoginPage'>
       <Stack.Screen
         name='SplashScreen'
         component={SplashScreen}
