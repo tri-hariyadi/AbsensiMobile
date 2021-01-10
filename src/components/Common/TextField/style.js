@@ -13,11 +13,11 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     borderRadius: responsiveHeight(radiusSize ? radiusSize : 5),
-    width: responsiveWidth(80),
+    width: '100%',
     paddingHorizontal: responsiveWidth(4),
     width: '100%',
     borderWidth: focused ? 2 : 1,
-    borderColor: error ? 'red' : focused ? colors.colorVariables.blue1 : colors.borderColor
+    borderColor: error ? colors.colorVariables.danger : focused ? colors.colorVariables.blue1 : colors.borderColor
   }),
   errorHelper: {
     flexDirection: 'row-reverse',
@@ -34,21 +34,31 @@ const Styles = StyleSheet.create({
     fontFamily: customFont.secondary[400],
     width: '100%',
     color: colors.colorVariables.indigo1,
-    width: "82%"
+    width: "82%",
+    fontSize:responsiveFontSize(1.9)
   },
   animatedView: (scaleValue, opacityValue, color) => ({
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: responsiveHeight(4.8),
-    height: scaleValue ? responsiveHeight(4.8) : 0,
-    borderRadius: responsiveHeight(4.8) / 2,
+    width: responsiveHeight(5),
+    height: scaleValue ? responsiveHeight(5) : 0,
+    borderRadius: responsiveHeight(5) / 2,
     transform: [{ scale: scaleValue }],
     opacity: opacityValue,
     backgroundColor: color ? color : colors.colorVariables.black2,
   }),
+  btnFieldWrapper: {
+    flex: 1,
+    borderRadius: responsiveHeight(5) / 2,
+    backgroundColor: 'transparent',
+    width: responsiveHeight(5),
+    height: responsiveHeight(5),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btnField: {
+    position: 'absolute', 
+    right: 15
+  }
 });
 
 export default Styles;

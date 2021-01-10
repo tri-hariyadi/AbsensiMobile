@@ -1,5 +1,6 @@
 const optionColors = {
   //black
+  black: '#000',
   black1: '#3c3c3c',
   black2: 'rgba(0, 0, 0, 0.5)',
 

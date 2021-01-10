@@ -14,10 +14,11 @@ import { responsiveHeight } from 'react-native-responsive-dimensions';
 import { Field, reduxForm } from 'redux-form';
 import { ICLogoApp, ILBgLogin } from '../../assets';
 import { Gap, TextField, Button, Link } from '../../components';
+import { LoginValidation } from '../../config/validation';
 import { colors } from '../../utils';
 import Styles from './style'; 
 
-const LoginPage = () => {
+const LoginPage = props => {
   const a = useRef();
   const b = useRef();
   const scrollViewRef = useRef();
@@ -47,6 +48,11 @@ const LoginPage = () => {
       keyboardHideListener.current.remove();
     }
   }, [isOpen]);
+
+  const onSubmit = (data) => {
+    props.navigation.navigate('MainApp');
+    // alert(JSON.stringify(data));
+  }
 
   return (
     <>
@@ -125,13 +131,14 @@ const LoginPage = () => {
             <Button
               type="primary"
               borderRadius={15}
-              onPress={() => navigation.replace('LoginPage')}
+              onPress={props.handleSubmit(onSubmit)}
             >
               Sign in
             </Button>
             <Link
               desc='Forgot Password?'
               link='Recover Here'
+              onPress={() => props.navigation.goBack()}
             />
           </View>
         </View>
@@ -142,5 +149,5 @@ const LoginPage = () => {
 
 export default reduxForm({
   form: 'formLogin',
-  // validate: LoginValidation
+  validate: LoginValidation
 })(LoginPage);

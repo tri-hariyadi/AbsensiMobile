@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { View, TouchableWithoutFeedback, Animated, Easing, Platform } from 'react-native';
-import { responsiveFontSize, responsiveHeight } from "react-native-responsive-dimensions";
+import { responsiveFontSize } from "react-native-responsive-dimensions";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../utils';
 import Styles from './style';
@@ -33,31 +33,25 @@ const BtnIconField = ({ iconName, onPress, color }) => {
     onPressIn();
     onPressOut();
     setTimeout(() => {
-      if (onPress) {
-        onPress();
-      }
+      if (onPress) onPress();
     }, 200)
   }
 
   return (
-    <View style={{ borderRadius: 100, backgroundColor: "transparent", padding: responsiveHeight(0.8) }}>
-      <Animated.View
-        style={Styles.animatedView(scaleValue, opacityValue, color)}
-      />
-    <TouchableWithoutFeedback
-      onPress={onButtonPressed}
-      style={{ borderRadius: 100, padding: 6 }}>
-      <View>
+    <TouchableWithoutFeedback onPress={onButtonPressed}>
+      <View style={Styles.btnFieldWrapper}>
+        <Animated.View
+          style={Styles.animatedView(scaleValue, opacityValue, color)}
+        />
         {iconName &&
           <Icon
             name={iconName}
-            size={responsiveFontSize(2.8)}
+            size={responsiveFontSize(3)}
             color={colors.colorVariables.indigo1}
           />
         }
       </View>
     </TouchableWithoutFeedback>
-    </View>
   )
 }
 
