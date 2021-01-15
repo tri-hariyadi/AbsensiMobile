@@ -3,6 +3,7 @@ const optionColors = {
   black: '#000',
   black1: '#3c3c3c',
   black2: 'rgba(0, 0, 0, 0.5)',
+  black3: 'rgba(0, 0, 0, 0.65)',
 
   //white
   white: '#FFF',
@@ -31,6 +32,10 @@ const optionColors = {
 
   //yellow
   yellowDark: '#edad2e',
+
+  //purple
+  purple1: '#8158c8',
+  purple2: '#6a1b9a',
 
   orangeAccent1:'#ff6d00',
 

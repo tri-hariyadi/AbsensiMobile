@@ -4,6 +4,7 @@ import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../utils';
+import BtnIconOnly from './BtnIconOnly';
 import Styles from './style';
 
 const Button = ({
@@ -16,13 +17,22 @@ const Button = ({
   borderRadius,
   textBold,
   iconName,
-  isLoading
+  isLoading,
+  BtnIcon
 }) => {
 
   const onPressing = () => {
     if (onPress) {
       onPress();
     }
+  }
+
+  if (BtnIcon) {
+    return <BtnIconOnly 
+      rippleColor={rippleColor}
+      iconName={iconName}
+      type={type}
+    />
   }
 
   return (

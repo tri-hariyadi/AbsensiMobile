@@ -24,7 +24,7 @@ const Styles = StyleSheet.create({
     marginTop: responsiveHeight(0.5),
   },
   errorText: {
-    color: 'red',
+    color: colors.colorVariables.danger,
     textAlign: 'left',
     marginRight: responsiveWidth(4.5),
     fontSize: responsiveFontSize(1.5),

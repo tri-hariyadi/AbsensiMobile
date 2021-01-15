@@ -9,6 +9,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(5),
     backgroundColor: colors.colorVariables.white,
     borderTopWidth: 1,
-    borderColor: colors.colorVariables.whiteSmoke2
+    borderColor: colors.colorVariables.whiteSmoke2,
+    elevation: 15,
+    shadowColor: 'black',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 20,
   }
 })
