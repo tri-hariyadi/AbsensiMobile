@@ -1,3 +1,5 @@
+import { Animated, Easing } from 'react-native';
+
 export const AnimateLogo = {
   0: {
     opacity: 0,
@@ -21,66 +23,23 @@ export const AnimateLogo = {
   }
 }
 
-export const fromBottom = {
-  0: {
-    opacity: 0,
-    translateY: 2000
-  },
-  0.2: {
-    opacity: 0.5,
-  },
-  0.8: {
-    opacity: 0.6,
-    translateY: 1000
-  },
-  1: {
-    opacity: 1,
-    translateY: 0
-  }
-}
 
-export const fromTopCard = {
-  0: {
-    // opacity: 0,
-    translateY: -20
-  },
-  0.5: {
-    // opacity: 0.3,
-    translateY: -10
-  },
-  1: {
-    // opacity: 1,
-    translateY: 0
-  }
-}
+export const RippleAnimation = (scaleValue, opacityValue, maxOpacity) => {
+  const scaleAnimation = Animated.spring(scaleValue, {
+    toValue: 1,
+    duration: 225,
+    easing: Easing.bezier(0.0, 0.0, 0.2, 1),
+    useNativeDriver: Platform.OS === 'android',
+  });
 
-export const bounce = {
-  0: { 
-    translateY: 0,
-    scale: 1.1
-  },
-  0.1: {
-    translateY: 0,
-    scale: 0.8
-  },
-  0.3: { 
-    translateY: -150,
-    scale: 0.8
-  },
-  0.5: { 
-    translateY: 0,
-    scale: 1.1
-  },
-  0.57: {
-    translateY: -7,
-    scale: 1.1
-  },
-  0.64: {
-    translateY: 0,
-    scale: 1.1
-  },
-  1: { 
-    translateY: 0,
-    scale: 1.1
-  },
+  const opacityAnimation = Animated.timing(opacityValue, {
+    toValue: 0,
+    useNativeDriver: Platform.OS === 'android',
+  });
+
+  Animated.stagger(225, [scaleAnimation, opacityAnimation]).start(() => {
+    scaleValue.setValue(0);
+    opacityValue.setValue(maxOpacity);
+    // scaleAnimation.start()
+  });
 }

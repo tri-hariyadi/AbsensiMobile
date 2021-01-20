@@ -31,7 +31,34 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  //style btnIconOnly
+  containerBtnIcon: {
+    overflow: 'hidden',
+    alignSelf: 'stretch',
+  },
+  BtnIconItemWrapper: (background, height) => ({
+    borderRadius: height / 2,
+    backgroundColor: background,
+    padding: responsiveHeight(1.8),
+    alignItems: 'center',
+    justifyContent: 'center'
+  }),
+  animatedView: (scaleValue, opacityValue, height, rippleColor, width, borderRadius) => ({
+    position: 'absolute',
+    width: width ? width : height,
+    height: scaleValue ? height : 0,
+    borderRadius: (typeof borderRadius === "number") 
+      ? borderRadius > 0 
+        ? 
+          borderRadius : height / 2 
+      : borderRadius ? height / 2 : 0,
+    transform: [{ scale: scaleValue }],
+    opacity: opacityValue,
+    backgroundColor: rippleColor ? rippleColor : colors.colorVariables.white,
+    top: 0,
+    zIndex: 2
+  }),
 });
 
 export default Styles;
