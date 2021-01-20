@@ -40,7 +40,7 @@ const LoginPage = props => {
         toValue: isOpen ? 1 : 0,
         duration: 300,
         easing: Easing.linear,
-        useNativeDriver: Platform.OS === 'android' ? false : true
+        useNativeDriver: false
       }).start();
     }
     return () => {

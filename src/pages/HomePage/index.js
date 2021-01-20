@@ -138,6 +138,7 @@ const HomePage = props => {
           BtnIcon
           iconName="add"
           type='danger'
+          containerBtnIconStyle={Styles.btnIconStyle}
         >
           Click Me
       </Button>
@@ -261,4 +262,9 @@ const Styles = StyleSheet.create({
     color: colors.colorVariables.indigo1,
     textAlign: 'center'
   },
+  btnIconStyle: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10
+  }
 })
