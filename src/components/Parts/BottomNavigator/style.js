@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
     borderColor: colors.colorVariables.whiteSmoke2,
     elevation: 15,
     shadowColor: 'black',
-    shadowOpacity: 1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 20,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 7 },
+    shadowRadius: 10,
   }
 })

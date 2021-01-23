@@ -10,6 +10,7 @@ const optionColors = {
   whiteSmoke: '#f5f5f5',
   whiteSmoke3: '#eeeeee',
   whiteSmoke2: '#e0e0e0',
+  whiteSmoke4: 'rgba(224, 224, 224, 0.75)',
 
   //green
   greenLighten: '#66bb6a',

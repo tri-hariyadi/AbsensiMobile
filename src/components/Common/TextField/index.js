@@ -47,7 +47,7 @@ const TextField = ({
       Animated.timing(animatedIsFocused, {
         toValue: (isFocused || restInput.value !== '') ? 1 : 0,
         duration: 200,
-        useNativeDriver: Platform.OS === 'android' ? false : true
+        useNativeDriver: false
       }).start();
     }
 

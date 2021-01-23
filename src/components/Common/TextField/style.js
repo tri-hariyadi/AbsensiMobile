@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -17,6 +17,7 @@ const Styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(4),
     width: '100%',
     borderWidth: focused ? 2 : 1,
+    paddingVertical: Platform.OS === 'ios' ? responsiveHeight(1.5) : 0,
     borderColor: error ? colors.colorVariables.danger : focused ? colors.colorVariables.blue1 : colors.borderColor
   }),
   errorHelper: {

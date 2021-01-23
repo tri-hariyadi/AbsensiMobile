@@ -6,7 +6,7 @@ import { styles } from './style';
 import { colors, RippleAnimation } from '../../../utils';
 
 const TabItem = ({ title, active, onPress, onLongPress }) => {
-  const maxOpacity = 0.7;
+  const maxOpacity = 0.5;
   const scaleValue = useRef(new Animated.Value(0)).current;
   const opacityValue = useRef(new Animated.Value(maxOpacity)).current;
   const animatedColor = useRef(new Animated.Value(0)).current;
@@ -20,14 +20,14 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     const scaleAnimation = Animated.timing(animatedScale, {
       toValue: 1,
       duration: 500,
-      easing: Easing.easing,
-      useNativeDriver: Platform.OS === 'android' ? false : true
+      easing: Easing.ease,
+      useNativeDriver: false
     });
 
     const colorAnimation = Animated.timing(animatedColor, {
       toValue: 1,
       duration: 225,
-      useNativeDriver: Platform.OS === 'android' ? false : true
+      useNativeDriver: false
     });
     Animated.stagger(400, [scaleAnimation, colorAnimation]).start();
   }
@@ -36,7 +36,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     transform: [{
       scale: animatedScale.interpolate({
         inputRange: [0, 0.7, 0.9, 1],
-        outputRange: [1, 0.4, 1.8, 1]
+        outputRange: [1, 0.4, 2, 1]
       })
     }],
     color: animatedColor.interpolate({
@@ -59,7 +59,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     Animated.timing(animatedColor, {
       toValue: 1,
       duration: 100,
-      useNativeDriver: Platform.OS === 'android' ? false : true
+      useNativeDriver: false
     }).start();
   }, [])
 

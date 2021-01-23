@@ -18,10 +18,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iconWrapper: {
-    width: responsiveHeight(4.8),
-    height: responsiveHeight(4.8),
-    backgroundColor: colors.colorVariables.indigo1,
-    borderRadius: responsiveHeight(4.8) / 2,
+    height: responsiveHeight(4),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -41,7 +38,7 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    // marginRight: -6
+    // marginRight: -6,
   },
   textValue: {
     marginRight: 10,
