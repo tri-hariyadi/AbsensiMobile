@@ -32,7 +32,7 @@ const BtnIconOnly = ({
         !containerBtnIconStyle && { maxHeight: height, maxWidth: height,}]}>
       <Icon
         name={iconName}
-        size={responsiveFontSize(2.8)}
+        size={responsiveFontSize(4)}
         color={colors.colorVariables.white}
       />
     </View>

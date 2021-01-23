@@ -34,13 +34,12 @@ const Styles = StyleSheet.create({
   },
   //style btnIconOnly
   containerBtnIcon: {
-    overflow: 'hidden',
     alignSelf: 'stretch',
   },
   BtnIconItemWrapper: (background, height) => ({
     borderRadius: height / 2,
     backgroundColor: background,
-    padding: responsiveHeight(1.8),
+    padding: responsiveHeight(1.3),
     alignItems: 'center',
     justifyContent: 'center'
   }),

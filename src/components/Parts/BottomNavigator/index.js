@@ -1,11 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { TabItem } from '../../Common';
 import { styles } from './style';
 
 const BottomNavigator = ({ state, descriptors, navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -46,7 +46,7 @@ const BottomNavigator = ({ state, descriptors, navigation }) => {
           />
         );
       })}
-    </View>
+    </SafeAreaView>
   )
 }
 

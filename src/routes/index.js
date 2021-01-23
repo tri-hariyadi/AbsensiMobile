@@ -8,6 +8,7 @@ import {
   HomePage,
   KasPage,
   ProfilePage,
+  AddAttendancePage,
 } from '../pages';
 import { BottomNavigator } from '../components';
 
@@ -26,7 +27,7 @@ const MainApp = () => {
 
 const Routes = () => {
   return (
-    <Stack.Navigator initialRouteName='MainApp'>
+    <Stack.Navigator initialRouteName='AddAttendancePage'>
       <Stack.Screen
         name='SplashScreen'
         component={SplashScreen}
@@ -45,6 +46,11 @@ const Routes = () => {
       <Stack.Screen
         name='MainApp'
         component={MainApp}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='AddAttendancePage'
+        component={AddAttendancePage}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
