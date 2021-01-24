@@ -13,6 +13,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
   const animatedScale = useRef(new Animated.Value(0)).current;
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  const [icon, setIcon] = useState(false)
 
   const animatedIcon = () => {
     animatedScale.setValue(0);
@@ -35,7 +36,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
   let labelStyle = {
     transform: [{
       scale: animatedScale.interpolate({
-        inputRange: [0, 0.7, 0.9, 1],
+        inputRange: [0, 0.7, 0.8, 1],
         outputRange: [1, 0.4, 2, 1]
       })
     }],
@@ -61,7 +62,10 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
       duration: 100,
       useNativeDriver: false
     }).start();
-  }, [])
+    if (!active.current) {
+      setTimeout(() => setIcon(active), active ? 400 : 0);
+    }
+  }, [active])
 
   const IconTabMenu = () => {
     switch (title) {
@@ -69,8 +73,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
         return (
           <Animated.Text style={labelStyle}>
             <Icon
-              name='home'
-              size={responsiveFontSize(2.5)}
+              name={icon ? 'house' : 'roofing'}
+              size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
         )
@@ -78,8 +82,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
         return (
           <Animated.Text style={labelStyle}>
             <Icon
-              name='menu-book'
-              size={responsiveFontSize(2.5)}
+              name={icon ? 'local-library' : 'import-contacts'}
+              size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
         )
@@ -87,8 +91,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
         return (
           <Animated.Text style={labelStyle}>
             <Icon
-              name='person'
-              size={responsiveFontSize(2.5)}
+              name={icon ? 'person' :'person-outline' }
+              size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
         )

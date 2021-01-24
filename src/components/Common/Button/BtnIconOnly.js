@@ -7,6 +7,7 @@ import Styles from './style';
 
 const BtnIconOnly = ({
   type,
+  large,
   onPress,
   iconName,
   rippleColor,
@@ -28,11 +29,11 @@ const BtnIconOnly = ({
     <View 
       onLayout={event => setHeight(event.nativeEvent.layout.height)} 
       style={[
-        Styles.BtnIconItemWrapper(background, height), 
+        Styles.BtnIconItemWrapper(background, height, large), 
         !containerBtnIconStyle && { maxHeight: height, maxWidth: height,}]}>
       <Icon
         name={iconName}
-        size={responsiveFontSize(4)}
+        size={responsiveFontSize(3.7)}
         color={colors.colorVariables.white}
       />
     </View>
@@ -46,6 +47,8 @@ const BtnIconOnly = ({
         return <ButtonItem background={colors.colorVariables.warning} />
       case 'danger':
         return <ButtonItem background={colors.colorVariables.danger} />
+      case 'success':
+        return <ButtonItem background={colors.colorVariables.greenLighten2} />
 
       default:
         return <ButtonItem background={colors.colorVariables.purple2} />

@@ -19,6 +19,7 @@ const Button = ({
   children,
   background,
   type,
+  large,
   color,
   rippleColor,
   borderRadius,
@@ -44,6 +45,7 @@ const Button = ({
   if (BtnIcon) {
     return <BtnIconOnly
       type={type}
+      large={large}
       onPress={onPress}
       iconName={iconName}
       rippleColor={rippleColor}

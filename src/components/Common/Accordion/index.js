@@ -7,12 +7,12 @@ import Gap from '../Gap';
 import Styles from './style'
 
 const Accordion = props => {
-  let [minHeight, setMinHeight] = useState(0);
+  const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const animation = useRef(new Animated.Value(54)).current;
 
-  const toggle = () => {
+  const toggle = async () => {
     let initialValue = expanded ? maxHeight + minHeight : minHeight;
     let finalValue = expanded ? minHeight : maxHeight + minHeight;
 
@@ -39,8 +39,12 @@ const Accordion = props => {
   }
 
   useEffect(() => { 
-    if (!minHeight.current) if (props.expanded && minHeight !== 0) toggle();
-  }, [minHeight])
+    if (!minHeight.current && !maxHeight.current) {
+      if (props.expanded && minHeight > 0 && maxHeight > 0) {
+        toggle();
+      }
+    }
+  }, [minHeight, maxHeight]);
 
   return (
     <Animated.View

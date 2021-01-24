@@ -1,52 +1,73 @@
-import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React, { useRef } from 'react';
+import { Text, View, SafeAreaView } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import { colors } from '../../utils';
+import * as RNLocalize from "react-native-localize";
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { Button, Gap } from '../../components';
+import Styles from './style';
 
-const AddAttendancePage = () => {
-  const camera = React.useRef();
+const AddAttendancePage = props => {
+  const camera = useRef();
+  let days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  let mounts = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  let date = new Date().getDate();
+  let day = days[new Date().getDay()];
+  let month = mounts[new Date().getMonth()];
+  let hours = new Date().getHours();
+  let min = new Date().getMinutes();
+  let timeZone = RNLocalize.getTimeZone();
+
+  const takePicture = async () => {
+    if (camera.current) {
+      const options = { quality: 0.5, base64: true };
+      const data = await camera.current.takePictureAsync(options);
+      console.log(data.uri);
+    }
+  };
   return (
     <SafeAreaView style={Styles.container}>
-      <View>
-        <Text>AddAttendancePage</Text>
+      <View style={Styles.header}>
+        <Text style={Styles.textHour}>{hours < 10 ? `0${hours}` : hours} : {min < 10 ? `0${min}` : min}</Text>
+        <Gap height={1} />
+        <Text style={Styles.textZone}>{timeZone}</Text>
+        <Gap height={1} />
+        <Text style={[Styles.textZone, { fontSize: responsiveFontSize(2.5) }]}>{day}, {date} {month}</Text>
+        <Gap height={5} />
       </View>
-      <View>
-        <RNCamera
-          ref={camera}
-          style={Styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          // androidRecordAudioPermissionOptions={{
-          //   title: 'Permission to use audio recording',
-          //   message: 'We need your permission to use your audio',
-          //   buttonPositive: 'Ok',
-          //   buttonNegative: 'Cancel',
-          // }}
-          // onGoogleVisionBarcodesDetected={({ barcodes }) => {
-          //   console.log(barcodes);
-          // }}
-        />
+      <RNCamera
+        ref={camera}
+        style={Styles.preview}
+        type={RNCamera.Constants.Type.front}
+        flashMode={RNCamera.Constants.FlashMode.off}
+        androidCameraPermissionOptions={{
+          title: 'Permission to use camera',
+          message: 'We need your permission to use your camera',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
+        }}
+        androidRecordAudioPermissionOptions={{
+          title: 'Permission to use audio recording',
+          message: 'We need your permission to use your audio',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
+        }}
+      />
+      <View style={Styles.btnCaptureContainer}>
+        <View style={Styles.btnCaptureWrapper}>
+          <Button
+            BtnIcon
+            large={2}
+            iconName="photo-camera"
+            type='success'
+            containerBtnIconStyle={Styles.containerBtnIconStyle}
+            onPress={takePicture}
+          />
+          <Gap height={1} />
+          <Text style={Styles.textCapture}>Capture</Text>
+        </View>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 export default AddAttendancePage;
-
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorVariables.white,
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-})

@@ -36,10 +36,10 @@ const Styles = StyleSheet.create({
   containerBtnIcon: {
     alignSelf: 'stretch',
   },
-  BtnIconItemWrapper: (background, height) => ({
+  BtnIconItemWrapper: (background, height, large) => ({
     borderRadius: height / 2,
     backgroundColor: background,
-    padding: responsiveHeight(1.3),
+    padding: large ? responsiveHeight(large) : responsiveHeight(1.5),
     alignItems: 'center',
     justifyContent: 'center'
   }),

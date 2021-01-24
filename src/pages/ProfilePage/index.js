@@ -76,8 +76,8 @@ const Styles = StyleSheet.create({
   },
   profileSection: {
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderColor: colors.colorVariables.indigo1
+    borderBottomWidth: 4,
+    borderColor: colors.colorVariables.purple2
   },
   imageProfile: {
     width: responsiveHeight(15),
@@ -94,7 +94,7 @@ const Styles = StyleSheet.create({
     fontFamily: customFont.secondary[700],
     textTransform: 'uppercase',
     fontSize: responsiveFontSize(2.3),
-    color: colors.colorVariables.purple2
+    color: colors.colorVariables.indigo1
   },
   textGroup2: {
     fontFamily: customFont.secondary[600],

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   Dimensions,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -27,7 +28,7 @@ const HomePage = props => {
     animatedOverlayMenu.setValue(0)
     Animated.timing(animatedOverlayMenu, {
       toValue: 1,
-      duration: 1000,
+      duration: 700,
       easing: Easing.quad,
       useNativeDriver: false
     }).start();
@@ -35,16 +36,16 @@ const HomePage = props => {
 
   const overlayMenuStyle = {
     height: animatedOverlayMenu.interpolate({
-      inputRange: [0, 0.5, 1],
-      outputRange: [0, WIDTH/2, WIDTH]
+      inputRange: [0, 1],
+      outputRange: [0, WIDTH]
     }),
     width: animatedOverlayMenu.interpolate({
-      inputRange: [0, 0.5, 1],
-      outputRange: [0, WIDTH/2, WIDTH]
+      inputRange: [0, 1],
+      outputRange: [0, WIDTH]
     }),
     opacity: animatedOverlayMenu.interpolate({
-      inputRange: [0, 0.9, 1],
-      outputRange: [0, 0.5, 1]
+      inputRange: [0, 0.6, 1],
+      outputRange: [0, 0.3, 1]
     })
   }
 
@@ -64,7 +65,7 @@ const HomePage = props => {
 
   return (
     <>
-      <StatusBar backgroundColor={colors.colorVariables.bluePrimary} barStyle="dark-content" />
+      <StatusBar backgroundColor={colors.colorVariables.purple2} barStyle={Platform.OS === 'ios' ? "dark-content" : "light-content"} />
       <SafeAreaView style={Styles.container}>
         <View
           style={[Styles.content, { paddingVertical: 10 }]}
@@ -80,10 +81,10 @@ const HomePage = props => {
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="none"
           keyboardShouldPersistTaps="handled"
-          style={Styles.content}
           contentContainerStyle={{ flexGrow: 1 }}
           onTouchStart={showOverlayView}
         >
+          <Gap height={1} />
           <View style={Styles.card}>
             <View style={Styles.cardBodyProfile}>
               <View>
@@ -136,94 +137,96 @@ const HomePage = props => {
             </View>
           </View>
           <Gap height={2} />
-          <Text style={Styles.textAttendance}>Attendance</Text>
-          <Gap height={2} />
-          <Accordion
-            labelIcon='event-note'
-            label='Januari 2021' expanded={true}>
-            <View style={Styles.listAttendance}>
-              <Gap height={1.5} />
-              <View style={Styles.cardBodyProfile}>
-                <View style={Styles.timeAttendanceItem}>
-                  <Image source={ILNullPhoto} style={Styles.imageProfile2} />
-                  <Gap width={3} />
-                  <Text style={Styles.listAttendanceDate}>Jumat, Januari 15</Text>
-                </View>
-                <View>
-                  <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
-                  <Gap height={0.6} />
-                  <Text style={Styles.listAttendanceWork}>working</Text>
-                </View>
-              </View>
-              <Gap height={1.5} />
-            </View>
-            <View style={Styles.listAttendance}>
-              <Gap height={1.5} />
-              <View style={Styles.cardBodyProfile}>
-                <View style={Styles.timeAttendanceItem}>
-                  <Image source={ILNullPhoto} style={Styles.imageProfile2} />
-                  <Gap width={3} />
+          <View style={Styles.content}>
+            <Text style={Styles.textAttendance}>Attendance</Text>
+            <Gap height={2} />
+            <Accordion
+              labelIcon='event-note'
+              label='Januari 2021' expanded={true}>
+              <View style={Styles.listAttendance}>
+                <Gap height={1.5} />
+                <View style={Styles.cardBodyProfile}>
+                  <View style={Styles.timeAttendanceItem}>
+                    <Image source={ILNullPhoto} style={Styles.imageProfile2} />
+                    <Gap width={3} />
+                    <Text style={Styles.listAttendanceDate}>Jumat, Januari 15</Text>
+                  </View>
                   <View>
-                    <Text style={Styles.listAttendanceDate}>Kamis, Januari 14</Text>
+                    <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
                     <Gap height={0.6} />
-                    <Text style={[Styles.textDay, { color: colors.colorVariables.redLight1 }]}>
-                      On work for 11H 12m
-                    </Text>
+                    <Text style={Styles.listAttendanceWork}>working</Text>
                   </View>
                 </View>
-                <View>
-                  <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
-                  <Gap height={0.6} />
-                  <Text style={Styles.textAttendance2}>04:00 PM</Text>
-                </View>
+                <Gap height={1.5} />
               </View>
-              <Gap height={1.5} />
-            </View>
-          </Accordion>
-          <Gap height={1.5} />
-          <Accordion
-            labelIcon='event-note'
-            label='Januari 2021'>
-            <View style={Styles.listAttendance}>
-              <Gap height={1.5} />
-              <View style={Styles.cardBodyProfile}>
-                <View style={Styles.timeAttendanceItem}>
-                  <Image source={ILNullPhoto} style={Styles.imageProfile2} />
-                  <Gap width={3} />
-                  <Text style={Styles.listAttendanceDate}>Jumat, Januari 15</Text>
-                </View>
-                <View>
-                  <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
-                  <Gap height={0.6} />
-                  <Text style={Styles.listAttendanceWork}>working</Text>
-                </View>
-              </View>
-              <Gap height={1.5} />
-            </View>
-            <View style={Styles.listAttendance}>
-              <Gap height={1.5} />
-              <View style={Styles.cardBodyProfile}>
-                <View style={Styles.timeAttendanceItem}>
-                  <Image source={ILNullPhoto} style={Styles.imageProfile2} />
-                  <Gap width={3} />
-                  <View>
-                    <Text style={Styles.listAttendanceDate}>Kamis, Januari 14</Text>
-                    <Gap height={0.6} />
-                    <Text style={[Styles.textDay, { color: colors.colorVariables.redLight1 }]}>
-                      On work for 11H 12m
+              <View style={Styles.listAttendance}>
+                <Gap height={1.5} />
+                <View style={Styles.cardBodyProfile}>
+                  <View style={Styles.timeAttendanceItem}>
+                    <Image source={ILNullPhoto} style={Styles.imageProfile2} />
+                    <Gap width={3} />
+                    <View>
+                      <Text style={Styles.listAttendanceDate}>Kamis, Januari 14</Text>
+                      <Gap height={0.6} />
+                      <Text style={[Styles.textDay, { color: colors.colorVariables.redLight1 }]}>
+                        On work for 11H 12m
                     </Text>
+                    </View>
+                  </View>
+                  <View>
+                    <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
+                    <Gap height={0.6} />
+                    <Text style={Styles.textAttendance2}>04:00 PM</Text>
                   </View>
                 </View>
-                <View>
-                  <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
-                  <Gap height={0.6} />
-                  <Text style={Styles.textAttendance2}>04:00 PM</Text>
-                </View>
+                <Gap height={1.5} />
               </View>
-              <Gap height={1.5} />
-            </View>
-          </Accordion>
-          <Gap height={4} />
+            </Accordion>
+            <Gap height={1.5} />
+            <Accordion
+              labelIcon='event-note'
+              label='Januari 2021'>
+              <View style={Styles.listAttendance}>
+                <Gap height={1.5} />
+                <View style={Styles.cardBodyProfile}>
+                  <View style={Styles.timeAttendanceItem}>
+                    <Image source={ILNullPhoto} style={Styles.imageProfile2} />
+                    <Gap width={3} />
+                    <Text style={Styles.listAttendanceDate}>Jumat, Januari 15</Text>
+                  </View>
+                  <View>
+                    <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
+                    <Gap height={0.6} />
+                    <Text style={Styles.listAttendanceWork}>working</Text>
+                  </View>
+                </View>
+                <Gap height={1.5} />
+              </View>
+              <View style={Styles.listAttendance}>
+                <Gap height={1.5} />
+                <View style={Styles.cardBodyProfile}>
+                  <View style={Styles.timeAttendanceItem}>
+                    <Image source={ILNullPhoto} style={Styles.imageProfile2} />
+                    <Gap width={3} />
+                    <View>
+                      <Text style={Styles.listAttendanceDate}>Kamis, Januari 14</Text>
+                      <Gap height={0.6} />
+                      <Text style={[Styles.textDay, { color: colors.colorVariables.redLight1 }]}>
+                        On work for 11H 12m
+                    </Text>
+                    </View>
+                  </View>
+                  <View>
+                    <Text style={[Styles.textAttendance, { fontSize: responsiveFontSize(1.8) }]}>08:34 AM</Text>
+                    <Gap height={0.6} />
+                    <Text style={Styles.textAttendance2}>04:00 PM</Text>
+                  </View>
+                </View>
+                <Gap height={1.5} />
+              </View>
+            </Accordion>
+            <Gap height={4} />
+          </View>
         </ScrollView>
         <Button
           BtnIcon
