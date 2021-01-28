@@ -52,12 +52,6 @@ const AddAttendancePage = props => {
           buttonPositive: 'Ok',
           buttonNegative: 'Cancel',
         }}
-        androidRecordAudioPermissionOptions={{
-          title: 'Permission to use audio recording',
-          message: 'We need your permission to use your audio',
-          buttonPositive: 'Ok',
-          buttonNegative: 'Cancel',
-        }}
       />
       <View style={Styles.btnCaptureContainer}>
         <View style={Styles.btnCaptureWrapper}>
