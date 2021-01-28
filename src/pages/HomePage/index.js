@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Text,
   View,
@@ -12,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useIsFocused } from '@react-navigation/native';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { ILNullPhoto } from '../../assets';
 import { Button, Gap, Accordion } from '../../components';
@@ -23,8 +24,11 @@ const WIDTH = Dimensions.get('window').width;
 const HomePage = props => {
   const scrollViewRef = useRef();
   const animatedOverlayMenu = useRef(new Animated.Value(0)).current;
+  const [showOverlayMenu, setShowOverlayMenu] = useState(false);
+  const isFocused = useIsFocused();
 
   const onBtnOverlayMenuPressed = () => {
+    setShowOverlayMenu(!showOverlayMenu)
     animatedOverlayMenu.setValue(0)
     Animated.timing(animatedOverlayMenu, {
       toValue: 1,
@@ -46,7 +50,7 @@ const HomePage = props => {
     opacity: animatedOverlayMenu.interpolate({
       inputRange: [0, 0.6, 1],
       outputRange: [0, 0.3, 1]
-    })
+    }),
   }
 
   const showOverlayView = () => {
@@ -55,13 +59,14 @@ const HomePage = props => {
       duration: 300,
       easing: Easing.quad,
       useNativeDriver: false
-    }).start();
+    }).start(() => setShowOverlayMenu(false));
   }
 
   useEffect(() => {
-    return () => {
+    if (!isFocused.current) {
+      if (isFocused === false) setShowOverlayMenu(false);
     }
-  }, []);
+  }, [isFocused]);
 
   return (
     <>
@@ -235,33 +240,35 @@ const HomePage = props => {
           containerBtnIconStyle={Styles.btnIconStyle}
           onPress={onBtnOverlayMenuPressed}
         />
-        <Animated.View style={[Styles.overlayMenuWrapper, overlayMenuStyle]}>
-          <View style={Styles.viewAddAttendance}>
-            <Text style={Styles.textViewOverlay}>Add</Text>
-            <Gap width={2} />
-            <Button
-              BtnIcon
-              iconName="fingerprint"
-              type='warning'
-              containerBtnIconStyle={{
-                position: "relative",
-              }}
-              onPress={() => props.navigation.navigate('AddAttendancePage')}
-            />
-          </View>
-          <View style={Styles.viewOut}>
-            <Text style={Styles.textViewOverlay}>Out</Text>
-            <Gap width={2} />
-            <Button
-              BtnIcon
-              iconName="power-settings-new"
-              type='danger'
-              containerBtnIconStyle={{
-                position: "relative",
-              }}
-            />
-          </View>
-        </Animated.View>
+        {showOverlayMenu && 
+          <Animated.View style={[Styles.overlayMenuWrapper, overlayMenuStyle]}>
+            <View style={Styles.viewAddAttendance}>
+              <Text style={Styles.textViewOverlay}>Add</Text>
+              <Gap width={2} />
+              <Button
+                BtnIcon
+                iconName="fingerprint"
+                type='warning'
+                containerBtnIconStyle={{
+                  position: "relative",
+                }}
+                onPress={() => props.navigation.navigate('AddAttendancePage')}
+              />
+            </View>
+            <View style={Styles.viewOut}>
+              <Text style={Styles.textViewOverlay}>Out</Text>
+              <Gap width={2} />
+              <Button
+                BtnIcon
+                iconName="power-settings-new"
+                type='danger'
+                containerBtnIconStyle={{
+                  position: "relative",
+                }}
+              />
+            </View>
+          </Animated.View>
+        }
       </SafeAreaView>
     </>
   )
