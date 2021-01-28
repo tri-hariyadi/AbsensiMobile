@@ -5,7 +5,6 @@ import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-nat
 import { ILNullPhoto } from '../../assets';
 import { Gap } from '../../components';
 import { colors, customFont } from '../../utils';
-import { color } from 'd3-color';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -50,6 +49,17 @@ const ProfilePage = () => {
           <TouchableOpacity style={[Styles.menuButton, { borderWidth: 0, padding: 0 }]}>
             <View style={Styles.menuButton}>
               <Icon
+                name='assignment'
+                size={responsiveFontSize(6)}
+                color={colors.colorVariables.black3}
+              />
+            </View>
+            <Gap height={1} />
+            <Text style={Styles.textGroup2}>Report</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[Styles.menuButton, { borderWidth: 0, padding: 0 }]}>
+            <View style={Styles.menuButton}>
+              <Icon
                 name='exit-to-app'
                 size={responsiveFontSize(6)}
                 color={colors.colorVariables.black3}
@@ -76,7 +86,7 @@ const Styles = StyleSheet.create({
   },
   profileSection: {
     alignItems: 'center',
-    borderBottomWidth: 4,
+    borderBottomWidth: 2,
     borderColor: colors.colorVariables.purple2
   },
   imageProfile: {

@@ -11,8 +11,8 @@ const Styles = StyleSheet.create({
     flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: responsiveHeight(2),
-    backgroundColor: colors.colorVariables.purple2,
+    // paddingVertical: responsiveHeight(2),
+    backgroundColor: colors.colorVariables.indigo1,
   },
   textHour: {
     fontFamily: customFont.secondary[600],
@@ -33,12 +33,14 @@ const Styles = StyleSheet.create({
     flex: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    height: responsiveHeight(10),
-    backgroundColor: colors.colorVariables.purple2
+    height: responsiveHeight(9),
+    backgroundColor: colors.colorVariables.indigo1,
   },
   btnCaptureWrapper: {
     position: 'absolute',
-    bottom: 17,
+    bottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textCapture: {
     fontFamily: customFont.secondary[600],

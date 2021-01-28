@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { Text, View, SafeAreaView, StatusBar } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import * as RNLocalize from "react-native-localize";
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
-import { Button, Gap } from '../../components';
+import { Button, Gap, Header } from '../../components';
+import { colors } from '../../utils';
 import Styles from './style';
 
 const AddAttendancePage = props => {
@@ -26,13 +27,19 @@ const AddAttendancePage = props => {
   };
   return (
     <SafeAreaView style={Styles.container}>
+      <StatusBar backgroundColor={colors.colorVariables.indigo1} barStyle={Platform.OS === 'ios' ? "dark-content" : "light-content"} />
+      <Header 
+        title="Add Attendance"
+        background={colors.colorVariables.indigo1}
+        onPress={() => props.navigation.goBack()}
+      />
       <View style={Styles.header}>
         <Text style={Styles.textHour}>{hours < 10 ? `0${hours}` : hours} : {min < 10 ? `0${min}` : min}</Text>
         <Gap height={1} />
         <Text style={Styles.textZone}>{timeZone}</Text>
         <Gap height={1} />
         <Text style={[Styles.textZone, { fontSize: responsiveFontSize(2.5) }]}>{day}, {date} {month}</Text>
-        <Gap height={5} />
+        <Gap height={7} />
       </View>
       <RNCamera
         ref={camera}
@@ -62,7 +69,7 @@ const AddAttendancePage = props => {
             containerBtnIconStyle={Styles.containerBtnIconStyle}
             onPress={takePicture}
           />
-          <Gap height={1} />
+          <Gap height={0.6} />
           <Text style={Styles.textCapture}>Capture</Text>
         </View>
       </View>

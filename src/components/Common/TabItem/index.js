@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, View, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import { styles } from './style';
 import { colors, RippleAnimation } from '../../../utils';
@@ -20,7 +21,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     animatedColor.setValue(0);
     const scaleAnimation = Animated.timing(animatedScale, {
       toValue: 1,
-      duration: 500,
+      duration: 450,
       easing: Easing.ease,
       useNativeDriver: false
     });
@@ -28,16 +29,17 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     const colorAnimation = Animated.timing(animatedColor, {
       toValue: 1,
       duration: 225,
+      easing: Easing.bezier(0.0, 0.0, 0.2, 1),
       useNativeDriver: false
     });
-    Animated.stagger(400, [scaleAnimation, colorAnimation]).start();
+    Animated.stagger(350, [scaleAnimation, colorAnimation]).start();
   }
 
   let labelStyle = {
     transform: [{
       scale: animatedScale.interpolate({
-        inputRange: [0, 0.7, 0.8, 1],
-        outputRange: [1, 0.4, 2, 1]
+        inputRange: [0, 0.6, 0.8, 1],
+        outputRange: [active ? 0.83 : 1, 0.6, 1.9, active ? 0.83 : 1]
       })
     }],
     color: animatedColor.interpolate({
@@ -63,7 +65,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
       useNativeDriver: false
     }).start();
     if (!active.current) {
-      setTimeout(() => setIcon(active), active ? 400 : 0);
+      setTimeout(() => setIcon(active), active ? 350 : 0);
     }
   }, [active])
 
@@ -72,8 +74,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
       case 'Home':
         return (
           <Animated.Text style={labelStyle}>
-            <Icon
-              name={icon ? 'house' : 'roofing'}
+            <MaterialCommunityIcons
+              name={icon ? 'home' : 'home-outline'}
               size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
@@ -81,8 +83,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
       case 'Kas':
         return (
           <Animated.Text style={labelStyle}>
-            <Icon
-              name={icon ? 'local-library' : 'import-contacts'}
+            <MaterialCommunityIcons
+              name={icon ? 'notebook' : 'notebook-outline'}
               size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
@@ -90,8 +92,8 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
       case 'Profile':
         return (
           <Animated.Text style={labelStyle}>
-            <Icon
-              name={icon ? 'person' :'person-outline' }
+            <MaterialCommunityIcons
+              name={icon ? 'account' :'account-outline' }
               size={responsiveFontSize(2.8)}
             />
           </Animated.Text>
@@ -113,7 +115,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
         }} 
         style={styles.container(width)}>
         <Animated.View
-          style={styles.animatedView(scaleValue, opacityValue, width, height)}
+          style={styles.animatedView(scaleValue, opacityValue, width-5, height)}
         />
         <IconTabMenu />
         <Text style={styles.text(active)}>{title}</Text>
