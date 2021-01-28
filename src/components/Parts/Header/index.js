@@ -10,10 +10,9 @@ const Header = ({
   rippleColor
 }) => {
   const onBtnBackPressed = () => {
-    if (onPress) {
-      onPress();
-    }
+    if (onPress) onPress();
   }
+  
   return (
     <View style={Styles.container(background)}>
       <Button

@@ -27,7 +27,7 @@ const BtnIconOnly = ({
       onLayout={event => setHeight(event.nativeEvent.layout.height)} 
       style={[
         Styles.BtnIconItemWrapper(background, height, large), 
-        !containerBtnIconStyle && { maxHeight: height, maxWidth: height,}]}>
+        !containerBtnIconStyle && { maxHeight: height, maxWidth: height }]}>
       <Icon
         name={iconName}
         size={responsiveFontSize(3.7)}

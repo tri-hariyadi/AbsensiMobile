@@ -5,6 +5,7 @@ import HomePage from './HomePage';
 import KasPage from './KasPage';
 import ProfilePage from './ProfilePage';
 import AddAttendancePage from './AddAttendancePage';
+import DetailAttendancePage from './DetailAttendancePage';
 
 export {
   SplashScreen,
@@ -14,4 +15,5 @@ export {
   KasPage,
   ProfilePage,
   AddAttendancePage,
+  DetailAttendancePage,
 }

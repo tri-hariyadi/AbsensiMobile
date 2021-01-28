@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TextInput, Animated, Platform } from 'react-native';
+import { View, Text, TextInput, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { change } from 'redux-form';
 import { responsiveFontSize, responsiveWidth } from "react-native-responsive-dimensions";
