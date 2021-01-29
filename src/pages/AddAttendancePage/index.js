@@ -19,11 +19,12 @@ const AddAttendancePage = props => {
   let timeZone = RNLocalize.getTimeZone();
 
   const takePicture = async () => {
-    if (camera.current) {
-      const options = { quality: 0.5, base64: true };
-      const data = await camera.current.takePictureAsync(options);
-      console.log(data.uri);
-    }
+    // if (camera.current) {
+    //   const options = { quality: 0.5, base64: true };
+    //   const data = await camera.current.takePictureAsync(options);
+    //   console.log(data.uri);
+    // }
+    props.navigation.navigate('DetailAttendancePage')
   };
   return (
     <SafeAreaView style={Styles.container}>
@@ -46,6 +47,7 @@ const AddAttendancePage = props => {
         style={Styles.preview}
         type={RNCamera.Constants.Type.front}
         flashMode={RNCamera.Constants.FlashMode.off}
+        captureAudio={false}
         androidCameraPermissionOptions={{
           title: 'Permission to use camera',
           message: 'We need your permission to use your camera',
