@@ -4,6 +4,7 @@ const optionColors = {
   black1: '#3c3c3c',
   black2: 'rgba(0, 0, 0, 0.5)',
   black3: 'rgba(0, 0, 0, 0.65)',
+  black4: 'rgba(0, 0, 0, 0.3)',
 
   //white
   white: '#FFF',
@@ -27,6 +28,9 @@ const optionColors = {
   bluePrimary: '#000282',
   blueDark: '#012e5e',
   blue1: '#1a73e8',
+
+  //blueLighten
+  blueLighten1: '#4fc3f7',
   
   //indigo
   indigo1: '#112340',
@@ -41,7 +45,7 @@ const optionColors = {
   orangeAccent1:'#ff6d00',
 
   warning: '#ffc107',
-  danger: '#DD6B55',
+  danger: '#d9534f',
   success: '#60cd4a'
 }
 

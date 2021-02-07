@@ -49,7 +49,6 @@ const Styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   card: {
-    position: 'relative',
     elevation: 6,
     padding: responsiveHeight(2),
     shadowColor: 'black',
@@ -57,7 +56,8 @@ const Styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
     backgroundColor: 'white',
-    borderRadius: 7
+    borderRadius: 7,
+    marginHorizontal: responsiveHeight(2)
   },
   cardBodyProfile: {
     flexDirection: 'row',

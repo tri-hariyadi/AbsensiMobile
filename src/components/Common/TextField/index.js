@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TextInput, Animated, Platform } from 'react-native';
+import { View, Text, TextInput, Animated, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { change } from 'redux-form';
 import { responsiveFontSize, responsiveWidth } from "react-native-responsive-dimensions";
@@ -7,6 +7,8 @@ import { colors } from '../../../utils';
 import Gap from '../Gap';
 import Styles from './style';
 import BtnIconField from './BtnIconField';
+
+const DEVICE_WIDTH = Dimensions.get('screen').width;
 
 const TextField = ({
   label,
@@ -65,7 +67,7 @@ const TextField = ({
     left: iconName ? responsiveWidth(11) : responsiveWidth(4),
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [14, -10],
+      outputRange: DEVICE_WIDTH <= 320 ? [11, -7] : [14, -10],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -117,7 +119,8 @@ const TextField = ({
           secureTextEntry={secureText}
           returnKeyType={returnKeyType}
           autoCapitalize={autoCapitalize}
-          onSubmitEditing={onSubmitEditing}
+          onSubmitEditing={onSubmitEditing} 
+          underlineColorAndroid='transparent'
         />
         {secureTextEntry && !(error && touched) &&
           <View style={Styles.btnField}>
@@ -139,7 +142,7 @@ const TextField = ({
         {touched && error &&
           <Icon
             name="error"
-            style={Styles.btnField}
+            style={[Styles.btnField, { right: -5 }]}
             size={responsiveFontSize(3)}
             color={colors.colorVariables.danger}
           />

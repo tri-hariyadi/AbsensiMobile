@@ -1,4 +1,4 @@
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Platform } from 'react-native';
 
 export const AnimateLogo = {
   0: {
@@ -37,9 +37,8 @@ export const RippleAnimation = (scaleValue, opacityValue, maxOpacity) => {
     useNativeDriver: Platform.OS === 'android',
   });
 
-  Animated.stagger(225, [scaleAnimation, opacityAnimation]).start(() => {
+  Animated.stagger(100, [scaleAnimation, opacityAnimation]).start(() => {
     scaleValue.setValue(0);
     opacityValue.setValue(maxOpacity);
-    // scaleAnimation.start()
   });
 }

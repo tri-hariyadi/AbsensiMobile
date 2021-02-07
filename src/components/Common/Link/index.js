@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import Styles from './style';
 
-const Link = ({ desc, link, onPress, linkIcon, iconName }) => {
+const Link = ({ desc, link, onPress }) => {
   const [isPress, setIsPress] = useState(false);
   const touchProps = {
     activeOpacity: 1,

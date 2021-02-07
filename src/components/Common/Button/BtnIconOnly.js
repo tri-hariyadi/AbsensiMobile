@@ -7,6 +7,7 @@ import Styles from './style';
 
 const BtnIconOnly = ({
   type,
+  large,
   onPress,
   iconName,
   rippleColor,
@@ -18,21 +19,18 @@ const BtnIconOnly = ({
   const opacityValue = useRef(new Animated.Value(maxOpacity)).current;
 
   const onBtnIconPress = () => {
-    RippleAnimation(scaleValue, opacityValue, maxOpacity);
-    if (onPress) {
-      onPress();
-    }
+    if (onPress) onPress();
   }
 
   const ButtonItem = ({ background }) => (
     <View 
       onLayout={event => setHeight(event.nativeEvent.layout.height)} 
       style={[
-        Styles.BtnIconItemWrapper(background, height), 
-        !containerBtnIconStyle && { maxHeight: height, maxWidth: height,}]}>
+        Styles.BtnIconItemWrapper(background, height, large), 
+        !containerBtnIconStyle && { maxHeight: height, maxWidth: height }]}>
       <Icon
         name={iconName}
-        size={responsiveFontSize(4)}
+        size={responsiveFontSize(3.7)}
         color={colors.colorVariables.white}
       />
     </View>
@@ -46,6 +44,10 @@ const BtnIconOnly = ({
         return <ButtonItem background={colors.colorVariables.warning} />
       case 'danger':
         return <ButtonItem background={colors.colorVariables.danger} />
+      case 'success':
+        return <ButtonItem background={colors.colorVariables.greenLighten2} />
+      case 'transparent':
+        return <ButtonItem background="transparent" />
 
       default:
         return <ButtonItem background={colors.colorVariables.purple2} />
@@ -53,7 +55,9 @@ const BtnIconOnly = ({
   }
 
   return (
-    <TouchableWithoutFeedback onPress={onBtnIconPress}>
+    <TouchableWithoutFeedback
+      onPressIn={() => RippleAnimation(scaleValue, opacityValue, maxOpacity)}
+      onPress={onBtnIconPress}>
       <View style={[Styles.containerBtnIcon, containerBtnIconStyle]}>
         <Animated.View
           style={Styles.animatedView(scaleValue, opacityValue, height, rippleColor, false, true)}
