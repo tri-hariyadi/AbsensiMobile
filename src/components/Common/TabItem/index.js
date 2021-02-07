@@ -115,7 +115,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
         }} 
         style={styles.container(width)}>
         <Animated.View
-          style={styles.animatedView(scaleValue, opacityValue, width-5, height)}
+          style={styles.animatedView(scaleValue, opacityValue, width-2, height)}
         />
         <IconTabMenu />
         <Text style={styles.text(active)}>{title}</Text>

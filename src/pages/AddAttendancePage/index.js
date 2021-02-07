@@ -40,7 +40,7 @@ const AddAttendancePage = props => {
         <Text style={Styles.textZone}>{timeZone}</Text>
         <Gap height={1} />
         <Text style={[Styles.textZone, { fontSize: responsiveFontSize(2.5) }]}>{day}, {date} {month}</Text>
-        <Gap height={7} />
+        <Gap height={2} />
       </View>
       <RNCamera
         ref={camera}

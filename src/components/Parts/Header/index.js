@@ -9,22 +9,27 @@ const Header = ({
   background,
   rippleColor
 }) => {
+  const [width, setWidth] = React.useState(0);
   const onBtnBackPressed = () => {
     if (onPress) onPress();
   }
   
   return (
     <View style={Styles.container(background)}>
-      <Button
-        BtnIcon
-        large={1.2}
-        rippleColor={rippleColor}
-        iconName="keyboard-arrow-left"
-        type="transparent"
-        containerBtnIconStyle={Styles.containerBtnIconStyle}
-        onPress={onBtnBackPressed}
-      />
-      <Text style={Styles.title}>{title}</Text>
+      <View onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
+        <Button
+          BtnIcon
+          large={1.2}
+          rippleColor={rippleColor}
+          iconName="keyboard-arrow-left"
+          type="transparent"
+          containerBtnIconStyle={Styles.containerBtnIconStyle}
+          onPress={onBtnBackPressed}
+        />
+      </View>
+      <View style={Styles.titleWrapper(width)}>
+        <Text style={Styles.title}>{title}</Text>
+      </View>
     </View>
   )
 }

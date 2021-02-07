@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Text, View, TouchableOpacity, Animated } from 'react-native';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../utils';
 import Gap from '../Gap';
@@ -10,7 +10,7 @@ const Accordion = props => {
   const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const animation = useRef(new Animated.Value(54)).current;
+  const animation = useRef(new Animated.Value(responsiveHeight(2.4) + responsiveFontSize(4))).current;
 
   const toggle = async () => {
     let initialValue = expanded ? maxHeight + minHeight : minHeight;
@@ -62,7 +62,7 @@ const Accordion = props => {
                 <View style={Styles.iconWrapper}>
                   <Icon
                     name={props.labelIcon}
-                    size={responsiveFontSize(3)}
+                    size={responsiveFontSize(4)}
                     color={colors.colorVariables.indigo1}
                   />
                 </View>

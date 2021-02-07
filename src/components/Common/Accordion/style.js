@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iconWrapper: {
-    height: responsiveHeight(4),
+    // height: responsiveHeight(4),
     alignItems: 'center',
     justifyContent: 'center',
   },

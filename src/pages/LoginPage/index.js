@@ -153,5 +153,6 @@ const LoginPage = props => {
 
 export default reduxForm({
   form: 'formLogin',
-  validate: LoginValidation
+  validate: LoginValidation,
+  enableReinitialize: true,
 })(LoginPage);

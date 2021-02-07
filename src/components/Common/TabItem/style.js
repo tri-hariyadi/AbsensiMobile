@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     color: colorValue ? colors.colorVariables.purple2 : colors.colorVariables.black,
     fontFamily: customFont.secondary[600],
     marginTop: 3,
-    minWidth: '13%',
+    minWidth: '15%',
     textAlign: 'center',
   }),
   animatedView: (scaleValue, opacityValue, width, height) => ({

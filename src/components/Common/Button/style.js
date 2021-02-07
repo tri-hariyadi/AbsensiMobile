@@ -34,12 +34,15 @@ const Styles = StyleSheet.create({
   },
   //style btnIconOnly
   containerBtnIcon: {
+    overflow: 'hidden',
     alignSelf: 'stretch',
+    borderRadius: 1000,
   },
   BtnIconItemWrapper: (background, height, large) => ({
-    borderRadius: height / 2,
+    // borderRadius: height / 2,
+    borderRadius: 1000,
     backgroundColor: background,
-    padding: large ? responsiveHeight(large) : responsiveHeight(1.5),
+    padding: large ? responsiveHeight(large) : responsiveHeight(1.7),
     alignItems: 'center',
     justifyContent: 'center'
   }),
@@ -56,6 +59,7 @@ const Styles = StyleSheet.create({
     opacity: opacityValue,
     backgroundColor: rippleColor ? rippleColor : colors.colorVariables.white,
     top: 0,
+    left: 0,
     zIndex: 2
   }),
 });

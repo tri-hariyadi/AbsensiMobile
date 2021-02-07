@@ -280,8 +280,8 @@ Alert.defaultProps = {
   showConfirmButton: false,
   cancelText: 'Cancel',
   confirmText: 'Confirm',
-  cancelButtonColor: '#D0D0D0',
-  confirmButtonColor: '#AEDEF4',
+  cancelButtonColor: '#df0000',
+  confirmButtonColor: '#4b61da',
   customView: null,
   modalProps: {},
 };

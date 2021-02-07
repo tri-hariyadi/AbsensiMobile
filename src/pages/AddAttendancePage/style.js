@@ -13,6 +13,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     // paddingVertical: responsiveHeight(2),
     backgroundColor: colors.colorVariables.indigo1,
+    zIndex: 99999
   },
   textHour: {
     fontFamily: customFont.secondary[600],
@@ -30,15 +31,15 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnCaptureContainer: {
-    flex: 0,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     height: responsiveHeight(9),
     backgroundColor: colors.colorVariables.indigo1,
   },
   btnCaptureWrapper: {
-    position: 'absolute',
-    bottom: 10,
+    position: 'relative',
+    bottom: 14,
     justifyContent: 'center',
     alignItems: 'center',
   },
