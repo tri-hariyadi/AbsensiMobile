@@ -7,10 +7,10 @@ import {
 import { colors, customFont } from '../../../utils';
 
 const Styles = StyleSheet.create({
-  container: (noBackground) => ({
-    backgroundColor: !noBackground ? colors.colorVariables.whiteSmoke : 'transparent',
+  container: (noBackground, background, borderRadius) => ({
+    backgroundColor: !noBackground ? background ? background : colors.colorVariables.whiteSmoke : 'transparent',
     overflow: 'hidden',
-    borderRadius: 10,
+    borderRadius: borderRadius ? 10 : 0,
   }),
   dropdownContentWrapper: {
     flexDirection: 'row',
@@ -29,10 +29,10 @@ const Styles = StyleSheet.create({
     color: colors.colorVariables.indigo1,
     textTransform: 'capitalize',
   }),
-  childrenWrapper: (labelIcon, noBackground) => ({
+  childrenWrapper: (labelIcon, noBackground, noPadding) => ({
     // paddingHorizontal: labelIcon ? responsiveWidth(14) : responsiveHeight(1),
-    paddingHorizontal: responsiveWidth(3),
-    paddingBottom: !noBackground ? responsiveHeight(3) : 0,
+    paddingHorizontal: noPadding ? 0 : responsiveWidth(3),
+    paddingBottom: !noBackground ? noPadding ? 0 : responsiveHeight(3) : 0,
   }),
   wrapperArrowValue: {
     flexDirection: 'row',

@@ -70,7 +70,7 @@ const HomePage = props => {
 
   return (
     <>
-      <StatusBar backgroundColor={colors.colorVariables.purple2} barStyle={Platform.OS === 'ios' ? "dark-content" : "light-content"} />
+      <StatusBar backgroundColor={colors.colorVariables.purple1} barStyle={Platform.OS === 'ios' ? "dark-content" : "light-content"} />
       <SafeAreaView style={Styles.container}>
         <View
           style={[Styles.content, { paddingVertical: 10 }]}
@@ -146,6 +146,7 @@ const HomePage = props => {
             <Text style={Styles.textAttendance}>Attendance</Text>
             <Gap height={2} />
             <Accordion
+              borderRadius
               labelIcon='event-note'
               label='Januari 2021' expanded={true}>
               <View style={Styles.listAttendance}>
@@ -189,6 +190,7 @@ const HomePage = props => {
             </Accordion>
             <Gap height={1.5} />
             <Accordion
+              borderRadius
               labelIcon='event-note'
               label='Januari 2021'>
               <View style={Styles.listAttendance}>
@@ -230,7 +232,7 @@ const HomePage = props => {
                 <Gap height={1.5} />
               </View>
             </Accordion>
-            <Gap height={4} />
+            <Gap height={18} />
           </View>
         </ScrollView>
         <Button

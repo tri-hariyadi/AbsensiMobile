@@ -125,7 +125,7 @@ const Styles = StyleSheet.create({
   btnIconStyle: {
     position: 'absolute',
     bottom: 10,
-    right: 10
+    right: 12,
   },
   //Overlay Menu
   overlayMenuWrapper: {

@@ -182,7 +182,19 @@ const DetailAttendancePage = props => {
               <Text style={Styles.textAddress}>{address}</Text>
             </View>
           </View>
-          <Gap height={2} />
+          <Gap height={3} />
+          <View style={Styles.content}>
+            <Text style={Styles.textSection}>Tag/project</Text>
+            <Gap height={1} />
+            <TouchableOpacity style={Styles.detailLocation}>
+              <Icon
+                name="cases"
+                size={responsiveFontSize(2.6)}
+                color={colors.colorVariables.danger}
+              />
+              <Text style={Styles.textAddress}>Select Attendance Tag or project</Text>
+            </TouchableOpacity>
+          </View>
           {/* <View style={Styles.wrapperMap}>
             <MapView
               provider={PROVIDER_GOOGLE}

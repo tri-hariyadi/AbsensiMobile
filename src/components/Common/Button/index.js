@@ -28,6 +28,7 @@ const Button = ({
   isLoading,
   BtnIcon,
   containerBtnIconStyle,
+  btnWrapperStyle,
 }) => {
   const maxOpacity = 0.6;
   const [height, setHeight] = useState(0);
@@ -91,7 +92,7 @@ const Button = ({
   }
 
   return (
-    <View style={Styles.wrapper(borderRadius)}>
+    <View style={[Styles.wrapper(borderRadius), btnWrapperStyle]}>
       <TouchableNativeFeedback
         onPress={onPressing}
         background={TouchableNativeFeedback.Ripple(

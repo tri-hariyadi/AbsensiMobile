@@ -9,12 +9,12 @@ import Styles from './style';
 
 const gridMenu = [
   { id: 1, icon: 'support-agent', title: 'Contact US' },
-  { id: 2, icon: 'person-outline', title: 'Change Profile' },
+  { id: 2, icon: 'person-outline', title: 'Change Profile', page: 'ChangeProfilePage' },
   { id: 3, icon: 'assignment', title: 'Report' },
   { id: 4, icon: 'exit-to-app', title: 'Logout' },
 ];
 
-const ProfilePage = () => {
+const ProfilePage = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
       <FlatList
@@ -39,7 +39,9 @@ const ProfilePage = () => {
         }
         ListFooterComponent={() => <Gap height={4} />}
         renderItem={({ item }) =>
-          <TouchableOpacity style={[Styles.menuButton, { borderWidth: 0, padding: 0 }]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(item.page)}
+            style={[Styles.menuButton, { borderWidth: 0, padding: 0 }]}>
             <View style={Styles.menuButton}>
               <Icon
                 name={item.icon}
