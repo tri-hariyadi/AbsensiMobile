@@ -1,18 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Text, View, TouchableOpacity, Animated } from 'react-native';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../utils';
 import Gap from '../Gap';
 import Styles from './style'
 
 const Accordion = props => {
-  let [minHeight, setMinHeight] = useState(0);
+  const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const animation = useRef(new Animated.Value(54)).current;
+  const animation = useRef(new Animated.Value(responsiveHeight(2.4) + responsiveFontSize(4))).current;
 
-  const toggle = () => {
+  const toggle = async () => {
     let initialValue = expanded ? maxHeight + minHeight : minHeight;
     let finalValue = expanded ? minHeight : maxHeight + minHeight;
 
@@ -36,14 +36,21 @@ const Accordion = props => {
 
   const _setMinHeight = (event) => {
     setMinHeight(event.nativeEvent.layout.height);
-    animation.setValue(event.nativeEvent.layout.height);
   }
+
+  useEffect(() => { 
+    if (!minHeight.current && !maxHeight.current) {
+      if (props.expanded && minHeight > 0 && maxHeight > 0) {
+        toggle();
+      }
+    }
+  }, [minHeight, maxHeight]);
 
   return (
     <Animated.View
-      style={[Styles.container(props.noBackground), { height: animation }]}>
+      style={[Styles.container(props.noBackground, props.background, props.borderRadius), { height: animation }]}>
       <TouchableOpacity
-        activeOpacity={0.7}
+        activeOpacity={0.5}
         onPress={toggle}
         onLayout={_setMinHeight}>
         <Gap height={1.2} />
@@ -55,8 +62,8 @@ const Accordion = props => {
                 <View style={Styles.iconWrapper}>
                   <Icon
                     name={props.labelIcon}
-                    size={responsiveFontSize(3)}
-                    color={colors.colorVariables.white}
+                    size={responsiveFontSize(4)}
+                    color={colors.colorVariables.indigo1}
                   />
                 </View>
               </>
@@ -70,12 +77,12 @@ const Accordion = props => {
               size={responsiveFontSize(2.8)}
               color={colors.colorVariables.indigo1}
             />
-            {!props.noBackground && <Gap width={5} />}
+            {!props.noBackground && <Gap width={2.5} />}
           </View>
         </View>
         <Gap height={1.2} />
       </TouchableOpacity>
-      <View onLayout={_setMaxHeight} style={Styles.childrenWrapper(props.labelIcon, props.noBackground)}>
+      <View onLayout={_setMaxHeight} style={Styles.childrenWrapper(props.labelIcon, props.noBackground, props.noPadding)}>
         {props.children}
       </View>
     </Animated.View>

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -9,14 +9,13 @@ import { colors, customFont } from '../../../utils';
 const Styles = StyleSheet.create({
   wrapper: (radiusSize, error, focused, theme) => ({
     flexDirection: 'row',
-    backgroundColor: 'yellow',
     alignItems: 'center',
     backgroundColor: 'transparent',
     borderRadius: responsiveHeight(radiusSize ? radiusSize : 5),
     width: '100%',
     paddingHorizontal: responsiveWidth(4),
-    width: '100%',
     borderWidth: focused ? 2 : 1,
+    paddingVertical: Platform.OS === 'ios' ? responsiveHeight(1.5) : 0,
     borderColor: error ? colors.colorVariables.danger : focused ? colors.colorVariables.blue1 : colors.borderColor
   }),
   errorHelper: {
@@ -32,10 +31,13 @@ const Styles = StyleSheet.create({
   },
   input: {
     fontFamily: customFont.secondary[400],
-    width: '100%',
     color: colors.colorVariables.indigo1,
     width: "82%",
-    fontSize:responsiveFontSize(1.9)
+    fontSize:responsiveFontSize(1.9),
+    borderBottomWidth: 0,
+    borderColor: 'transparent',
+    paddingVertical: 10,
+    paddingRight: 5
   },
   animatedView: (scaleValue, opacityValue, color) => ({
     position: 'absolute',
@@ -56,8 +58,8 @@ const Styles = StyleSheet.create({
     alignItems: 'center'
   },
   btnField: {
-    position: 'absolute', 
-    right: 15
+    position: 'relative', 
+    right: 3
   }
 });
 

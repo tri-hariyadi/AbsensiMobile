@@ -7,10 +7,10 @@ import {
 import { colors, customFont } from '../../../utils';
 
 const Styles = StyleSheet.create({
-  container: (noBackground) => ({
-    backgroundColor: !noBackground ? colors.colorVariables.whiteSmoke : 'transparent',
+  container: (noBackground, background, borderRadius) => ({
+    backgroundColor: !noBackground ? background ? background : colors.colorVariables.whiteSmoke : 'transparent',
     overflow: 'hidden',
-    borderRadius: 10,
+    borderRadius: borderRadius ? 10 : 0,
   }),
   dropdownContentWrapper: {
     flexDirection: 'row',
@@ -18,10 +18,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iconWrapper: {
-    width: responsiveHeight(4.8),
-    height: responsiveHeight(4.8),
-    backgroundColor: colors.colorVariables.indigo1,
-    borderRadius: responsiveHeight(4.8) / 2,
+    // height: responsiveHeight(4),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -32,16 +29,16 @@ const Styles = StyleSheet.create({
     color: colors.colorVariables.indigo1,
     textTransform: 'capitalize',
   }),
-  childrenWrapper: (labelIcon, noBackground) => ({
+  childrenWrapper: (labelIcon, noBackground, noPadding) => ({
     // paddingHorizontal: labelIcon ? responsiveWidth(14) : responsiveHeight(1),
-    paddingHorizontal: responsiveWidth(3),
-    paddingBottom: !noBackground ? responsiveHeight(3) : 0,
+    paddingHorizontal: noPadding ? 0 : responsiveWidth(3),
+    paddingBottom: !noBackground ? noPadding ? 0 : responsiveHeight(3) : 0,
   }),
   wrapperArrowValue: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    // marginRight: -6
+    // marginRight: -6,
   },
   textValue: {
     marginRight: 10,

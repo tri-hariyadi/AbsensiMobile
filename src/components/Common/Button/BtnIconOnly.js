@@ -1,72 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
-import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
+import React, { useState, useRef } from 'react';
+import { View, TouchableWithoutFeedback, Animated } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { colors } from '../../../utils';
-// import Styles from './style';
+import { colors, RippleAnimation } from '../../../utils';
+import Styles from './style';
 
 const BtnIconOnly = ({
-  rippleColor,
+  type,
+  large,
+  onPress,
   iconName,
-  type
+  rippleColor,
+  containerBtnIconStyle
 }) => {
-  const [background, setBackground] = useState(colors.colorVariables.purple2);
-  const typeBtn = () => {
+  const maxOpacity = 0.6;
+  const [height, setHeight] = useState(0);
+  const scaleValue = useRef(new Animated.Value(0)).current;
+  const opacityValue = useRef(new Animated.Value(maxOpacity)).current;
+
+  const onBtnIconPress = () => {
+    if (onPress) onPress();
+  }
+
+  const ButtonItem = ({ background }) => (
+    <View 
+      onLayout={event => setHeight(event.nativeEvent.layout.height)} 
+      style={[
+        Styles.BtnIconItemWrapper(background, height, large), 
+        !containerBtnIconStyle && { maxHeight: height, maxWidth: height }]}>
+      <Icon
+        name={iconName}
+        size={responsiveFontSize(3.7)}
+        color={colors.colorVariables.white}
+      />
+    </View>
+  )
+
+  const TypeBtn = () => {
     switch (type) {
       case 'primary':
-        return setBackground(colors.colorVariables.bluePrimary);
+        return <ButtonItem background={colors.colorVariables.bluePrimary} />
       case 'warning':
-        return setBackground(colors.colorVariables.warning);
+        return <ButtonItem background={colors.colorVariables.warning} />
       case 'danger':
-        return setBackground(colors.colorVariables.danger);
-    
+        return <ButtonItem background={colors.colorVariables.danger} />
+      case 'success':
+        return <ButtonItem background={colors.colorVariables.greenLighten2} />
+      case 'transparent':
+        return <ButtonItem background="transparent" />
+
       default:
-        return colors.colorVariables.purple2;
+        return <ButtonItem background={colors.colorVariables.purple2} />
     }
   }
 
-  useEffect(() => {
-    if (type === undefined || !type) {
-      type = 'primary'
-    }
-    if (!type.current) {
-      typeBtn();
-    }
-  }, [type]);
-
   return (
-    <View style={Styles.containerBtnIcon}>
-      <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple(
-          rippleColor ? rippleColor : colors.colorVariables.white, true
-        )}>
-        <View style={Styles.BtnIconItemWrapper(background)}>
-          <Icon
-            name={iconName}
-            size={responsiveFontSize(2.8)}
-            color={colors.colorVariables.white}
-          />
-        </View>
-      </TouchableNativeFeedback>
-    </View>
+    <TouchableWithoutFeedback
+      onPressIn={() => RippleAnimation(scaleValue, opacityValue, maxOpacity)}
+      onPress={onBtnIconPress}>
+      <View style={[Styles.containerBtnIcon, containerBtnIconStyle]}>
+        <Animated.View
+          style={Styles.animatedView(scaleValue, opacityValue, height, rippleColor, false, true)}
+        />
+        <TypeBtn />
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
 export default BtnIconOnly;
-
-const Styles = StyleSheet.create({
-  containerBtnIcon: {
-    borderRadius: 100,
-    overflow: 'hidden',
-    alignSelf: 'stretch',
-    position: 'absolute',
-    bottom: 10,
-    right: 10
-  },
-  BtnIconItemWrapper: (background) => ({
-    backgroundColor: background,
-    padding: responsiveHeight(1.8),
-  })
-})

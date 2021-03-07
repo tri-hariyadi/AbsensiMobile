@@ -1,9 +1,16 @@
-import React from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  Platform,
+  TouchableWithoutFeedback,
+  Animated
+} from 'react-native';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { colors } from '../../../utils';
+import { colors, RippleAnimation } from '../../../utils';
 import BtnIconOnly from './BtnIconOnly';
 import Styles from './style';
 
@@ -12,31 +19,80 @@ const Button = ({
   children,
   background,
   type,
+  large,
   color,
   rippleColor,
   borderRadius,
   textBold,
   iconName,
   isLoading,
-  BtnIcon
+  BtnIcon,
+  containerBtnIconStyle,
+  btnWrapperStyle,
 }) => {
+  const maxOpacity = 0.6;
+  const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
+  const scaleValue = useRef(new Animated.Value(0)).current;
+  const opacityValue = useRef(new Animated.Value(maxOpacity)).current;
 
   const onPressing = () => {
+    RippleAnimation(scaleValue, opacityValue, maxOpacity)
     if (onPress) {
       onPress();
     }
   }
 
   if (BtnIcon) {
-    return <BtnIconOnly 
-      rippleColor={rippleColor}
-      iconName={iconName}
+    return <BtnIconOnly
       type={type}
+      large={large}
+      onPress={onPress}
+      iconName={iconName}
+      rippleColor={rippleColor}
+      containerBtnIconStyle={containerBtnIconStyle}
     />
   }
 
+  if (Platform.OS === 'ios') {
+    return (
+      <TouchableWithoutFeedback onPress={onPressing}>
+        <View style={Styles.wrapper(borderRadius)}>
+          <View
+            onLayout={(event) => {
+              setHeight(event.nativeEvent.layout.height);
+              setWidth(event.nativeEvent.layout.width);
+            }}
+            style={Styles.container(background, type)}>
+            <Animated.View
+              style={Styles.animatedView(scaleValue, opacityValue, height, rippleColor, width, borderRadius)}
+            />
+            {isLoading ?
+              <View style={Styles.wrapperLoading}>
+                <ActivityIndicator size={20} color={colors.colorVariables.white} />
+                <Text style={[Styles.text(color, textBold), { marginLeft: 5 }]}>Loading...</Text>
+              </View>
+              :
+              <>
+                {iconName &&
+                  <Icon
+                    name={iconName}
+                    size={responsiveFontSize(2.8)}
+                    color={colors.colorVariables.white}
+                    style={Styles.icon}
+                  />
+                }
+                <Text style={Styles.text(color, textBold)}>{children}</Text>
+              </>
+            }
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    )
+  }
+
   return (
-    <View style={Styles.wrapper(borderRadius)}>
+    <View style={[Styles.wrapper(borderRadius), btnWrapperStyle]}>
       <TouchableNativeFeedback
         onPress={onPressing}
         background={TouchableNativeFeedback.Ripple(
@@ -49,7 +105,7 @@ const Button = ({
               <ActivityIndicator size={20} color={colors.colorVariables.white} />
               <Text style={[Styles.text(color, textBold), { marginLeft: 5 }]}>Loading...</Text>
             </View>
-            : 
+            :
             <>
               {iconName &&
                 <Icon

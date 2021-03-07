@@ -4,6 +4,7 @@ import TextField from './TextField';
 import Link from './Link';
 import TabItem from './TabItem';
 import Accordion from './Accordion';
+import DatePickerField from './DatePickerField';
 
 export {
   Button,
@@ -11,5 +12,6 @@ export {
   TextField,
   Link,
   TabItem,
-  Accordion
+  Accordion,
+  DatePickerField
 }

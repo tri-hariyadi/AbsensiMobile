@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TextInput, Animated, Platform } from 'react-native';
+import { View, Text, TextInput, Animated, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { change } from 'redux-form';
 import { responsiveFontSize, responsiveWidth } from "react-native-responsive-dimensions";
@@ -7,6 +7,8 @@ import { colors } from '../../../utils';
 import Gap from '../Gap';
 import Styles from './style';
 import BtnIconField from './BtnIconField';
+
+const DEVICE_WIDTH = Dimensions.get('screen').width;
 
 const TextField = ({
   label,
@@ -23,6 +25,8 @@ const TextField = ({
   autoCapitalize,
   secureTextEntry,
   onSubmitEditing,
+  onFocusTextField,
+  showSoftInputOnFocus,
   input: { onChange, ...restInput },
   meta: { error, warning, touched, form, dispatch },
 }) => {
@@ -33,7 +37,10 @@ const TextField = ({
   const animatedIsFocused = useRef(new Animated.Value(restInput.value !== '' ? 0 : 1)).current;
 
   const updateField = () => dispatch(change(form, restInput.name, ''));
-  const handleFocus = () => setIsFocused(true);
+  const handleFocus = () => {
+    if (onFocusTextField) onFocusTextField();
+    setIsFocused(true);
+  }
   const handleBlur = () => setIsFocused(false);
 
   useEffect(() => {
@@ -47,7 +54,7 @@ const TextField = ({
       Animated.timing(animatedIsFocused, {
         toValue: (isFocused || restInput.value !== '') ? 1 : 0,
         duration: 200,
-        useNativeDriver: Platform.OS === 'android' ? false : true
+        useNativeDriver: false
       }).start();
     }
 
@@ -65,7 +72,7 @@ const TextField = ({
     left: iconName ? responsiveWidth(11) : responsiveWidth(4),
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [14, -10],
+      outputRange: DEVICE_WIDTH <= 320 ? [11, -7] : [14, -10],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -117,7 +124,9 @@ const TextField = ({
           secureTextEntry={secureText}
           returnKeyType={returnKeyType}
           autoCapitalize={autoCapitalize}
-          onSubmitEditing={onSubmitEditing}
+          onSubmitEditing={onSubmitEditing} 
+          underlineColorAndroid='transparent'
+          showSoftInputOnFocus={showSoftInputOnFocus}
         />
         {secureTextEntry && !(error && touched) &&
           <View style={Styles.btnField}>
@@ -139,7 +148,7 @@ const TextField = ({
         {touched && error &&
           <Icon
             name="error"
-            style={Styles.btnField}
+            style={[Styles.btnField, { right: -5 }]}
             size={responsiveFontSize(3)}
             color={colors.colorVariables.danger}
           />

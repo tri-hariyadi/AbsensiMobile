@@ -8,7 +8,8 @@ import {
   Keyboard,
   ScrollView,
   Animated,
-  Easing
+  Easing,
+  KeyboardAvoidingView
 } from 'react-native';
 import { responsiveHeight } from 'react-native-responsive-dimensions';
 import { Field, reduxForm } from 'redux-form';
@@ -16,7 +17,7 @@ import { ICLogoApp, ILBgLogin } from '../../assets';
 import { Gap, TextField, Button, Link } from '../../components';
 import { LoginValidation } from '../../config/validation';
 import { colors } from '../../utils';
-import Styles from './style'; 
+import Styles from './style';
 
 const LoginPage = props => {
   const a = useRef();
@@ -40,7 +41,7 @@ const LoginPage = props => {
         toValue: isOpen ? 1 : 0,
         duration: 300,
         easing: Easing.linear,
-        useNativeDriver: Platform.OS === 'android' ? false : true
+        useNativeDriver: false
       }).start();
     }
     return () => {
@@ -57,14 +58,16 @@ const LoginPage = props => {
   return (
     <>
       <StatusBar backgroundColor={colors.colorVariables.bluePrimary} barStyle="light-content" />
-      <ScrollView
-        ref={scrollViewRef}
-        showsVerticalScrollIndicator={false}
-        keyboardDismissMode="none"
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={Styles.container}
-      >
-        {!isOpen &&
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={{ flex: 1 }}>
+        <ScrollView
+          ref={scrollViewRef}
+          showsVerticalScrollIndicator={false}
+          keyboardDismissMode="none"
+          keyboardShouldPersistTaps="always"
+          contentContainerStyle={Styles.container}
+        >
           <Animated.View style={{
             opacity: animated.interpolate({
               inputRange: [0, 1],
@@ -74,6 +77,7 @@ const LoginPage = props => {
               inputRange: [0, 1],
               outputRange: ["40%", "0%"],
             }),
+            display: isOpen ? 'none' : 'flex'
           }}>
             <ImageBackground
               source={ILBgLogin}
@@ -85,69 +89,74 @@ const LoginPage = props => {
               <Text style={Styles.textDesc}>Sign in to continue</Text>
             </ImageBackground>
           </Animated.View>
-        }
-        <View style={Styles.content(isOpen)}>
-          <View style={Styles.logoWrapper}>
-            <Animated.View
-              style={{
-                opacity: animated.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 1],
-                }),
-                height: animated.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, responsiveHeight(20)],
-                }),
-                display: isOpen ? 'flex' : 'none'
-              }}>
-              <Image source={ICLogoApp} style={Styles.imageLogo} />
-            </Animated.View>
-          </View>
-          <View>
-            <Field
-              externalRef={a}
-              name='username'
-              floatingLabel
-              iconName='person'
-              autoCapitalize='none'
-              component={TextField}
-              returnKeyType='next'
-              blurOnSubmit={false}
-              label='Username'
-              onSubmitEditing={() => b.current.focus()}
-            />
-            <Gap height={3} />
-            <Field
-              externalRef={b}
-              name='password'
-              floatingLabel
-              iconName='vpn-key'
-              autoCapitalize='none'
-              component={TextField}
-              label='Password'
-              secureTextEntry
-            />
-            <Gap height={4} />
-            <Button
-              type="primary"
-              borderRadius={15}
-              onPress={props.handleSubmit(onSubmit)}
-            >
-              Sign in
+          <View style={Styles.content(isOpen)}>
+            <View style={Styles.logoWrapper}>
+              <Animated.View
+                style={{
+                  opacity: animated.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                  height: animated.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, responsiveHeight(20)],
+                  }),
+                  display: isOpen ? 'flex' : 'none'
+                }}>
+                <Image source={ICLogoApp} style={Styles.imageLogo} />
+              </Animated.View>
+            </View>
+            <View>
+              <Field
+                externalRef={a}
+                name='username'
+                floatingLabel
+                iconName='person'
+                autoCapitalize='none'
+                component={TextField}
+                returnKeyType='next'
+                blurOnSubmit={false}
+                label='Username'
+                onSubmitEditing={() => b.current.focus()}
+              />
+              <Gap height={3} />
+              <Field
+                externalRef={b}
+                name='password'
+                floatingLabel
+                iconName='vpn-key'
+                autoCapitalize='none'
+                component={TextField}
+                label='Password'
+                secureTextEntry
+              />
+              <Gap height={4} />
+              <Button
+                type="primary"
+                borderRadius={15}
+                onPress={props.handleSubmit(onSubmit)}
+              >
+                Sign in
             </Button>
-            <Link
-              desc='Forgot Password?'
-              link='Recover Here'
-              onPress={() => props.navigation.goBack()}
-            />
+              <Link
+                desc='Forgot Password?'
+                link='Recover Here'
+                // onPress={() => props.navigation.goBack()}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   )
 }
 
 export default reduxForm({
   form: 'formLogin',
-  validate: LoginValidation
+  validate: LoginValidation,
+  enableReinitialize: true,
+  initialValues: {
+    username: 'tri',
+    password: '123'
+  }
 })(LoginPage);
