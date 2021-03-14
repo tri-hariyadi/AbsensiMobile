@@ -21,7 +21,7 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     animatedColor.setValue(0);
     const scaleAnimation = Animated.timing(animatedScale, {
       toValue: 1,
-      duration: 450,
+      duration: 500,
       easing: Easing.ease,
       useNativeDriver: false
     });
@@ -38,8 +38,10 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
   let labelStyle = {
     transform: [{
       scale: animatedScale.interpolate({
-        inputRange: [0, 0.6, 0.8, 1],
-        outputRange: [active ? 0.83 : 1, 0.6, 1.9, active ? 0.83 : 1]
+        // inputRange: [0, 0.6, 0.8, 1],
+        // outputRange: [active ? 0.83 : 1, 0.6, 1.9, active ? 0.83 : 1]
+        inputRange: [0, 0.7, 1],
+        outputRange: [1, 0.7, 1]
       })
     }],
     color: animatedColor.interpolate({
@@ -58,16 +60,19 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
     }
   }
 
+  React.useMemo(() => {
+    if (!active.current) {
+      setTimeout(() => setIcon(active), active ? 350 : 0);
+    }
+  }, [active]);
+
   useEffect(() => {
     Animated.timing(animatedColor, {
       toValue: 1,
       duration: 100,
       useNativeDriver: false
     }).start();
-    if (!active.current) {
-      setTimeout(() => setIcon(active), active ? 350 : 0);
-    }
-  }, [active])
+  }, [])
 
   const IconTabMenu = () => {
     switch (title) {

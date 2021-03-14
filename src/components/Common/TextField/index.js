@@ -25,6 +25,8 @@ const TextField = ({
   autoCapitalize,
   secureTextEntry,
   onSubmitEditing,
+  onFocusTextField,
+  showSoftInputOnFocus,
   input: { onChange, ...restInput },
   meta: { error, warning, touched, form, dispatch },
 }) => {
@@ -35,7 +37,10 @@ const TextField = ({
   const animatedIsFocused = useRef(new Animated.Value(restInput.value !== '' ? 0 : 1)).current;
 
   const updateField = () => dispatch(change(form, restInput.name, ''));
-  const handleFocus = () => setIsFocused(true);
+  const handleFocus = () => {
+    if (onFocusTextField) onFocusTextField();
+    setIsFocused(true);
+  }
   const handleBlur = () => setIsFocused(false);
 
   useEffect(() => {
@@ -121,6 +126,7 @@ const TextField = ({
           autoCapitalize={autoCapitalize}
           onSubmitEditing={onSubmitEditing} 
           underlineColorAndroid='transparent'
+          showSoftInputOnFocus={showSoftInputOnFocus}
         />
         {secureTextEntry && !(error && touched) &&
           <View style={Styles.btnField}>

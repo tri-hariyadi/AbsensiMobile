@@ -19,6 +19,9 @@ const optionColors = {
   greenLightDark1: '#25ba78',
   green2: '#0BCAD4',
 
+  //grey
+  grey1: '#90a4ae',
+
   //red
   redLight1: '#f78966',
   redLight2: '#ffcdd2',

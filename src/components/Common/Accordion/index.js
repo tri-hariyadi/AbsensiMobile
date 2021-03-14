@@ -48,7 +48,7 @@ const Accordion = props => {
 
   return (
     <Animated.View
-      style={[Styles.container(props.noBackground), { height: animation }]}>
+      style={[Styles.container(props.noBackground, props.background, props.borderRadius), { height: animation }]}>
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={toggle}
@@ -82,7 +82,7 @@ const Accordion = props => {
         </View>
         <Gap height={1.2} />
       </TouchableOpacity>
-      <View onLayout={_setMaxHeight} style={Styles.childrenWrapper(props.labelIcon, props.noBackground)}>
+      <View onLayout={_setMaxHeight} style={Styles.childrenWrapper(props.labelIcon, props.noBackground, props.noPadding)}>
         {props.children}
       </View>
     </Animated.View>

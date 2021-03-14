@@ -155,4 +155,8 @@ export default reduxForm({
   form: 'formLogin',
   validate: LoginValidation,
   enableReinitialize: true,
+  initialValues: {
+    username: 'tri',
+    password: '123'
+  }
 })(LoginPage);
